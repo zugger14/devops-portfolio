@@ -1,0 +1,246 @@
+.voiceNavContainer {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  font-family: inherit;
+}
+
+/* Floating HUD / Popup */
+.voiceHud {
+  width: 320px;
+  max-width: calc(100vw - 40px);
+  background: rgba(11, 25, 44, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 255, 200, 0.25);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 200, 0.15);
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #e6edf3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hudHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hudTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hudTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #00ffc8;
+  text-transform: uppercase;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Wave animation */
+.waveWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 16px;
+}
+
+.waveBar {
+  width: 3px;
+  background: #00ffc8;
+  border-radius: 2px;
+  animation: soundWave 1.2s ease-in-out infinite;
+}
+
+.waveBar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+.waveBar:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+.waveBar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+.waveBar:nth-child(4) { height: 14px; animation-delay: 0.4s; }
+
+@keyframes soundWave {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.6; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* Transcript preview */
+.transcriptBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 255, 200, 0.15);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.transcriptLabel {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.transcriptText {
+  color: #fff;
+  font-weight: 500;
+  font-style: italic;
+  min-height: 1.2rem;
+}
+
+.actionSuccess {
+  color: #00ffc8;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+/* Command Chips */
+.commandsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.commandChip {
+  font-size: 0.72rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.commandChip:hover {
+  background: rgba(0, 255, 200, 0.15);
+  border-color: #00ffc8;
+  color: #00ffc8;
+}
+
+/* Error Alert */
+.errorAlert {
+  background: rgba(255, 71, 87, 0.15);
+  border: 1px solid rgba(255, 71, 87, 0.4);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #ff9da6;
+}
+
+.errorTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: #ff5e7e;
+  font-size: 0.8rem;
+}
+
+.errorTip {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+}
+
+/* Main Mic Button */
+.micButton {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(11, 25, 44, 0.85);
+  color: #e6edf3;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.micButton:hover {
+  transform: translateY(-2px);
+  border-color: #00ffc8;
+  color: #00ffc8;
+  box-shadow: 0 10px 28px rgba(0, 255, 200, 0.25);
+}
+
+.micButtonListening {
+  background: rgba(0, 255, 200, 0.15);
+  border-color: #00ffc8;
+  color: #00ffc8;
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.45), inset 0 0 12px rgba(0, 255, 200, 0.2);
+}
+
+.micButtonError {
+  border-color: #ff5e7e;
+  color: #ff5e7e;
+  background: rgba(255, 71, 87, 0.15);
+}
+
+.micPulseRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid #00ffc8;
+  animation: pulseRing 1.8s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
