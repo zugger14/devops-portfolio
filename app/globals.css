@@ -1,0 +1,75 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* Cyberpunk Default Theme */
+  --color-primary: 0, 255, 200; /* #00FFC8 */
+  --color-accent: 255, 179, 0; /* #FFB300 */
+  --color-bg-start: #0B192C;
+  --color-bg-end: #000000;
+}
+
+:root[data-theme="synthwave"] {
+  /* Synthwave Purple/Cyan Theme */
+  --color-primary: 178, 0, 255; /* #B200FF */
+  --color-accent: 0, 229, 255; /* #00E5FF */
+  --color-bg-start: #1A0B2E;
+  --color-bg-end: #050014;
+}
+
+/* Smooth view transitions */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  transition: background-color 0.8s ease, border-color 0.8s ease, color 0.5s ease, box-shadow 0.8s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background: radial-gradient(circle at center, var(--color-bg-start) 0%, var(--color-bg-end) 100%);
+  background-attachment: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

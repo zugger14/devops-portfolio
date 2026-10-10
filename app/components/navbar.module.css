@@ -1,0 +1,117 @@
+.navbarWrapper {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  z-index: 100;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.brandLogo {
+  color: #00FFC8;
+  font-size: 1.5rem;
+}
+
+.brandName {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brandRole {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 400;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navLink:hover, .navLink.active {
+  color: #00FFC8;
+}
+
+.navLinkIcon {
+  font-size: 1.1rem;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.githubIcon {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+
+.githubIcon:hover {
+  color: #fff;
+}
+
+.ctaButton {
+  padding: 0.6rem 1.5rem;
+  background: rgba(0, 255, 200, 0.1);
+  border: 1px solid rgba(0, 255, 200, 0.4);
+  border-radius: 9999px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 200, 0.2), inset 0 0 10px rgba(0, 255, 200, 0.1);
+}
+
+.ctaButton:hover {
+  background: rgba(0, 255, 200, 0.2);
+  border-color: #00FFC8;
+  box-shadow: 0 0 25px rgba(0, 255, 200, 0.4), inset 0 0 15px rgba(0, 255, 200, 0.2);
+  color: #00FFC8;
+}
+
+@media (max-width: 1024px) {
+  .navLinks {
+    display: none;
+  }
+}
