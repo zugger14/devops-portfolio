@@ -46,7 +46,10 @@ jobs:
             set -e
             echo "==> Deploying updates to EC2..."
             
-            APP_DIR="${{ secrets.EC2_APP_DIR || '~/devops-portfolio' }}"
+            APP_DIR="${{ secrets.EC2_APP_DIR }}"
+            if [ -z "$APP_DIR" ]; then
+              APP_DIR="$HOME/devops-portfolio"
+            fi
             
             # Clone repo if first time setup, otherwise pull latest
             if [ ! -d "$APP_DIR" ]; then

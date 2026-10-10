@@ -4,7 +4,7 @@ Interactive DevOps portfolio showcasing automated delivery workflows, containeri
 
 ## 🚀 Live Demo & Architecture
 
-- **Live Site**: [http://174.129.149.237](http://174.129.149.237)
+- **Live Site**: [http://34.229.18.255](http://34.229.18.255)
 - **Tech Stack**: Next.js 16 (React 19), Docker, Docker Compose, Nginx, AWS EC2, GitHub Actions.
 
 ## 🛠️ Features
