@@ -1,87 +1,89 @@
-# DevOps Portfolio - Deployment & Infrastructure Guide
+# Multi-App Infrastructure & Deployment Guide
+### DevOps Portfolio, AMS (Appointment Management System), and MusicBook on AWS EC2
 
-Complete record of the infrastructure setup, automated CI/CD pipeline, server configurations, and maintenance guidelines.
+This guide documents the complete multi-container infrastructure running simultaneously on a single AWS EC2 `t3.micro` instance with Nginx reverse proxy routing and independent GitHub Actions CI/CD pipelines.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Multi-Application Architecture
 
 ```
-Developer Local Machine
-       │
-       ▼ (git push origin main)
-GitHub Actions (Runner: ubuntu-latest)
-       ├─► Job 1: Test & Build Validation (Node 22, npm run lint, npm run build)
-       └─► Job 2: Deploy to AWS EC2 via SSH (appleboy/ssh-action)
-                   │
-                   ▼ (SSH: 34.229.18.255)
-AWS EC2 Instance (t3.micro - Amazon Linux 2023)
-       ├─► 2 GB Swap Memory Active (/swapfile)
-       ├─► Nginx Reverse Proxy (Port 80 -> http://127.0.0.1:3000)
-       └─► Docker Compose (Next.js 16 Standalone Container: devops-portfolio:3000)
+                                 Internet / Client
+                                         │
+                                         ▼
+                      AWS EC2 (34.229.18.255 - t3.micro)
+                                         │
+             ┌───────────────────────────┴───────────────────────────┐
+             │               Nginx Host Reverse Proxy                │
+             │           (/etc/nginx/conf.d/*.conf)                  │
+             └──────┬────────────────────┬────────────────────┬──────┘
+                    │                    │                    │
+        (Port 80 / Default)     (Subdomain ams.*        (Subdomain musicbook.*
+         or portfolio.*)          or Port 8080)           or Port 8000)
+                    │                    │                    │
+                    ▼                    ▼                    ▼
+          ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐
+          │ devops-portfolio │ │     ams-web      │ │  musicbook-app   │
+          │  (Next.js 16)    │ │ (CodeIgniter PHP)│ │  (Laravel 5.5)   │
+          │  127.0.0.1:3000  │ │  127.0.0.1:8081  │ │  127.0.0.1:8001  │
+          └──────────────────┘ └────────┬─────────┘ └────────┬─────────┘
+                                        │                    │
+                                        ▼                    ├─► musicbook-db (MariaDB 10.6)
+                                   ams-db (MariaDB 10.4)     ├─► musicbook-redis (Redis Alpine)
+                                   (initdb auto-seeded)      └─► musicbook-socket (Node.js 14 / Port 8890)
 ```
 
 ---
 
-## 📁 Files Created & Modified
+## 🌐 Live URLs & Access
 
-| File | Change | Description |
-| :--- | :--- | :--- |
-| [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) | Added | CI/CD workflow triggering automated validation & SSH deployment on push to `main`. |
-| [`Dockerfile`](Dockerfile) | Created & Optimized | Multi-stage build (`node:20-alpine`) with `NODE_OPTIONS="--max-old-space-size=768"` for `t3.micro` stability. |
-| [`docker-compose.yml`](docker-compose.yml) | Added | Manages `devops-portfolio` container with `restart: always` on port `3000`. |
-| [`.dockerignore`](.dockerignore) | Added | Keeps Docker context lean by ignoring `node_modules`, `.next`, and logs. |
-| [`next.config.ts`](next.config.ts) | Modified | Enabled `output: 'standalone'` for lightweight container image generation. |
-| [`app/components/CicdDemo.tsx`](app/components/CicdDemo.tsx) | Added | Interactive dual-pane GitOps simulator with live sandbox iframe. |
+| Application | Routing Method | Live URL | Backend Port |
+| :--- | :--- | :--- | :--- |
+| **DevOps Portfolio** | Default Host / Port 80 | [http://34.229.18.255/](http://34.229.18.255/) | `127.0.0.1:3000` |
+| **AMS** | Subdomain on Port 80 | [http://ams.34.229.18.255.nip.io/](http://ams.34.229.18.255.nip.io/) | `127.0.0.1:8081` |
+| **AMS** | Direct Port | [http://34.229.18.255:8080/](http://34.229.18.255:8080/) | `127.0.0.1:8081` |
+| **MusicBook** | Subdomain on Port 80 | [http://musicbook.34.229.18.255.nip.io/](http://musicbook.34.229.18.255.nip.io/) | `127.0.0.1:8001` |
+| **MusicBook** | Direct Port | [http://34.229.18.255:8000/](http://34.229.18.255:8000/) | `127.0.0.1:8001` |
 
----
-
-## 🖥️ AWS EC2 Configuration (`34.229.18.255`)
-
-- **Instance**: `i-0a633431a60818a79` (`shirish-webserver`, `t3.micro`, Amazon Linux 2023).
-- **Swap Memory**: 2 GB swapfile configured at `/swapfile` (persisted in `/etc/fstab`) to allow Next.js build tools to compile without OOM crashing the 1 GB VM.
-- **Docker & Build Engine**: Docker service enabled (`systemctl enable --now docker`); Buildx upgraded to v0.38 for compatibility with modern Docker Compose.
-- **Nginx Reverse Proxy**: Configured at `/etc/nginx/default.d/portfolio.conf` forwarding port 80 to `http://127.0.0.1:3000`.
+> [!NOTE]
+> `nip.io` provides wildcard DNS resolution mapped directly to the EC2 IP (`34.229.18.255`) without requiring custom DNS purchases. Any custom domain (e.g. `ams.yourdomain.com`) also matches automatically due to the regex server name `~^ams\..*$` and `~^musicbook\..*$`.
 
 ---
 
-## 🔑 GitHub Repository Secrets
+## ⚙️ Nginx Reverse Proxy Setup (`/etc/nginx/conf.d/`)
 
-Configured on `zugger14/devops-portfolio`:
-- `EC2_HOST`: `34.229.18.255`
-- `EC2_USER`: `ec2-user`
-- `EC2_SSH_KEY`: Content of `shirish-webserver.pem`
+### 1. `portfolio.conf` (`/etc/nginx/default.d/portfolio.conf`)
+- Acts as default upstream for Port 80.
+- Proxies requests to Next.js on `http://127.0.0.1:3000`.
 
----
+### 2. `ams.conf` (`/etc/nginx/conf.d/ams.conf`)
+- Matches `server_name ~^ams\..*$;` on Port 80 and listens on Port 8080.
+- Proxies requests to `http://127.0.0.1:8081`.
+- Max body upload: 50MB.
 
-## ⚠️ Important Action Items For You
-
-1. **Rotate AWS Credentials (URGENT)**:
-   - The AWS Access Key (`AKIAY63AYR...`) and Secret Access Key entered earlier in chat should be rotated in the AWS IAM Console immediately. Deactivate and delete the old key, then create a new one.
-2. **Assign an Elastic IP (Recommended)**:
-   - `34.229.18.255` is currently a dynamic public IP. If the instance is stopped/started, AWS changes this IP.
-   - Allocate an Elastic IP in the AWS EC2 console, associate it with `shirish-webserver`, and update `EC2_HOST` secret if the IP changes (`gh secret set EC2_HOST --body "<new_ip>"`).
-3. **Domain & HTTPS (Optional)**:
-   - When pointing a domain, create an A record to your IP and run:
-     ```bash
-     sudo dnf install -y python3-certbot-nginx
-     sudo certbot --nginx -d yourdomain.com
-     ```
+### 3. `musicbook.conf` (`/etc/nginx/conf.d/musicbook.conf`)
+- Matches `server_name ~^musicbook\..*$;` on Port 80 and listens on Port 8000.
+- Proxies web requests to Laravel on `http://127.0.0.1:8001`.
+- Proxies `/socket.io/` WebSocket connections to Node.js server on `http://127.0.0.1:8890`.
+- Max body upload: 100MB.
 
 ---
 
-## 🛠️ Handy Commands
+## ⚡ Memory Optimization for `t3.micro` (1 GB RAM + 2 GB Swap)
 
-```bash
-# SSH into EC2
-ssh -i /path/to/shirish-webserver.pem ec2-user@34.229.18.255
+Running 7 simultaneous containers on 1 GB physical memory was achieved by tuning each database engine:
+- **MariaDB (AMS)**: `--innodb-buffer-pool-size=48M --performance-schema=OFF --key-buffer-size=16M --max-connections=30` (~60 MB RAM)
+- **MariaDB (MusicBook)**: `--innodb-buffer-pool-size=64M --performance-schema=OFF --key-buffer-size=16M --max-connections=30` (~75 MB RAM)
+- **Total system memory usage across all 7 containers**: ~460 MB used, leaving ample headroom and avoiding swap thrashing.
 
-# View live container logs
-docker logs -f devops-portfolio
+---
 
-# Check memory status
-free -m
+## 🚀 GitHub Actions CI/CD Pipelines
 
-# Manually trigger GitHub Actions deployment
-gh workflow run deploy.yml --ref main
-```
+All three repositories feature automated GitHub Actions workflows running on push to `main`:
+
+| Repository | Workflow File | Secrets Configured | Deploy Mechanism |
+| :--- | :--- | :--- | :--- |
+| `zugger14/devops-portfolio` | [`.github/workflows/deploy.yml`](../devops-portfolio/.github/workflows/deploy.yml) | `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY` | Node 22 build, SSH checkout, `docker compose up --build -d` |
+| `zugger14/ams` | [`.github/workflows/deploy.yml`](../ams/.github/workflows/deploy.yml) | `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY` | PHP syntax validation, SSH pull, `docker compose up --build -d` |
+| `zugger14/musicbook` | [`.github/workflows/deploy.yml`](../musicbook/.github/workflows/deploy.yml) | `EC2_HOST`, `EC2_USER`, `EC2_SSH_KEY` | PHP syntax validation, SSH pull, `docker compose up --build -d` |
