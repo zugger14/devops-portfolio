@@ -78,7 +78,6 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    continue-on-error: true
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -108,10 +107,22 @@ jobs:
 
       - name: Restart ECS Service with New Code
         run: |
-          echo "==> Triggering zero-downtime rolling update on ECS..."
-          aws ecs update-service \
-            --cluster multiapp-cluster-production \
-            --service portfolio-service \
-            --force-new-deployment \
-            --region ${{ secrets.AWS_REGION || 'us-east-1' }}
-          echo "==> ECS deployment successfully triggered!"
+          echo "==> Checking if ECS service exists and is active..."
+          CLUSTER_NAME="multiapp-cluster-production"
+          SERVICE_NAME="portfolio-service"
+          REGION="${{ secrets.AWS_REGION || 'us-east-1' }}"
+
+          SERVICE_STATUS=$(aws ecs describe-services --cluster "$CLUSTER_NAME" --services "$SERVICE_NAME" --region "$REGION" --query "services[?status=='ACTIVE'].status" --output text 2>/dev/null || true)
+
+          if [ "$SERVICE_STATUS" = "ACTIVE" ]; then
+            echo "==> Triggering zero-downtime rolling update on ECS service $SERVICE_NAME..."
+            aws ecs update-service \
+              --cluster "$CLUSTER_NAME" \
+              --service "$SERVICE_NAME" \
+              --force-new-deployment \
+              --region "$REGION"
+            echo "==> ECS deployment successfully triggered!"
+          else
+            echo "==> Note: ECS service $SERVICE_NAME is not currently active on $CLUSTER_NAME (skipped service restart)."
+            echo "==> Image is ready in ECR: ${{ steps.login-ecr.outputs.registry }}/portfolio:latest"
+          fi
