@@ -1,0 +1,219 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.highlight {
+  color: rgb(var(--color-primary));
+}
+
+.subtitle {
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 3.5rem;
+  font-size: 1.1rem;
+}
+
+/* Certifications Showcase */
+.certificationsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 4rem;
+}
+
+.certCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.certCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--color-primary), 0.3);
+  background: rgba(var(--color-primary), 0.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.certIconWrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.certName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.certIssuer {
+  font-size: 0.82rem;
+  color: #888;
+  margin-bottom: 0.35rem;
+}
+
+.certStatus {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Career Timeline */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-left: 2rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 1.5rem;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -2.6rem;
+  top: 0.2rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00ffc8;
+  border: 4px solid #0b192c;
+  box-shadow: 0 0 12px #00ffc8;
+}
+
+.timelineCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.75rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.timelineCard:hover {
+  border-color: rgba(0, 255, 200, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.timelineRole {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.timelinePeriod {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #ffb300;
+  background: rgba(255, 179, 0, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 179, 0, 0.25);
+}
+
+.timelineCompany {
+  font-size: 1rem;
+  color: rgb(var(--color-primary));
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.timelineDuties {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.timelineDuties li {
+  position: relative;
+  padding-left: 1.25rem;
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.timelineDuties li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: rgb(var(--color-primary));
+}
+
+.timelineTech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.timelineTechBadge {
+  background: rgba(255, 255, 255, 0.05);
+  color: #bbb;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: monospace;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 1rem;
+  }
+  .timelineDot {
+    left: -1.6rem;
+  }
+  .timelineHeader {
+    flex-direction: column;
+  }
+}

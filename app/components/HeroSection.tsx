@@ -38,9 +38,18 @@ export default function HeroSection() {
           Designing, automating, and scaling cloud-native architectures. Integrating AI assistants and MCP servers to build high-productivity workflows.
         </p>
         
-        <a href="#projects" className={styles.ctaButton}>
-          VIEW PROJECTS <FaArrowRight style={{marginLeft: '8px'}} />
-        </a>
+        <div className={styles.ctaGroup}>
+          <a href="#projects" className={styles.ctaButton}>
+            VIEW PROJECTS <FaArrowRight style={{marginLeft: '8px'}} />
+          </a>
+          <a 
+            href="/shirish-maharjan-resume.pdf" 
+            download="Shirish_Maharjan_Resume.pdf" 
+            className={styles.secondaryCtaButton}
+          >
+            DOWNLOAD CV
+          </a>
+        </div>
       </div>
     </section>
   );

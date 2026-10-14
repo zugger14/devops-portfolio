@@ -4,6 +4,7 @@ import SkillRadar from "./components/SkillRadar";
 import BinaryCanvas from "./components/BinaryCanvas";
 import heroStyles from "./components/hero.module.css";
 import Projects from "./components/Projects";
+import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 
 export default function Home() {
@@ -21,6 +22,9 @@ export default function Home() {
         </section>
         <section id="projects" style={{ padding: '4rem 1rem' }}>
           <Projects />
+        </section>
+        <section id="experience" style={{ padding: '4rem 1rem' }}>
+          <Experience />
         </section>
         <section id="live-demo" style={{ padding: '4rem 1rem' }}>
           <CicdDemo />

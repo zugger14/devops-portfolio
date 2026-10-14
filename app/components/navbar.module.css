@@ -88,6 +88,29 @@
   color: #fff;
 }
 
+.resumeNavBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.95rem;
+  background: rgba(255, 179, 0, 0.12);
+  border: 1px solid rgba(255, 179, 0, 0.4);
+  border-radius: 9999px;
+  color: #ffb300;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.resumeNavBtn:hover {
+  background: rgba(255, 179, 0, 0.25);
+  border-color: #ffb300;
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(255, 179, 0, 0.4);
+}
+
 .ctaButton {
   padding: 0.6rem 1.5rem;
   background: rgba(0, 255, 200, 0.1);

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { FaHome, FaLayerGroup, FaWrench, FaPen, FaEnvelope, FaGithub, FaTerminal } from 'react-icons/fa';
+import { FaHome, FaLayerGroup, FaWrench, FaBriefcase, FaEnvelope, FaGithub, FaTerminal, FaFileDownload } from 'react-icons/fa';
 import styles from './navbar.module.css';
 import ThemeToggle from './ThemeToggle';
 
@@ -42,13 +42,13 @@ export default function Navbar() {
             <FaLayerGroup className={styles.navLinkIcon} />
             <span>Projects</span>
           </a>
+          <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={styles.navLink}>
+            <FaBriefcase className={styles.navLinkIcon} />
+            <span>Experience</span>
+          </a>
           <a href="#skillset" onClick={(e) => handleNavClick(e, 'skillset')} className={styles.navLink}>
             <FaWrench className={styles.navLinkIcon} />
             <span>Skillset</span>
-          </a>
-          <a href="#blog" onClick={(e) => handleNavClick(e, 'blog')} className={styles.navLink}>
-            <FaPen className={styles.navLinkIcon} />
-            <span>Blog</span>
           </a>
           <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={styles.navLink}>
             <FaEnvelope className={styles.navLinkIcon} />
@@ -58,12 +58,31 @@ export default function Navbar() {
 
         <div className={styles.navActions}>
           <ThemeToggle />
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className={styles.githubIcon}>
+          <a 
+            href="https://github.com/shirish14" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={styles.githubIcon}
+            title="GitHub Profile"
+          >
             <FaGithub />
           </a>
-          <Link href="/contact" className={styles.ctaButton}>
+          <a 
+            href="/shirish-maharjan-resume.pdf" 
+            download="Shirish_Maharjan_Resume.pdf" 
+            className={styles.resumeNavBtn}
+            title="Download PDF Resume"
+          >
+            <FaFileDownload size={13} />
+            <span>CV</span>
+          </a>
+          <a 
+            href="#contact" 
+            onClick={(e) => handleNavClick(e, 'contact')} 
+            className={styles.ctaButton}
+          >
             GET IN TOUCH
-          </Link>
+          </a>
         </div>
       </nav>
     </div>

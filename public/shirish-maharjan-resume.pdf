@@ -1,0 +1,91 @@
+%PDF-1.4
+1 0 obj
+<< /Title (Shirish Maharjan - DevOps & Cloud Platform Engineer Resume)
+   /Author (Shirish Maharjan)
+   /Creator (Antigravity IDE) >>
+endobj
+2 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792]
+   /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >>
+   /Contents 7 0 R >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+7 0 obj
+<< /Length 720 >>
+stream
+BT
+/F1 22 Tf
+50 730 Td
+(SHIRISH MAHARJAN) Tj
+0 -20 Td
+/F2 11 Tf
+(DevOps & Cloud Platform Engineer | AWS, Kubernetes, Terraform, CI/CD, IaC) Tj
+0 -15 Td
+(Email: shirishmaharjan0@gmail.com | Phone: +977-9803341626 | Location: Kathmandu, Nepal) Tj
+0 -15 Td
+(LinkedIn: linkedin.com/in/shirish14/ | GitHub: github.com) Tj
+0 -25 Td
+/F1 14 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -15 Td
+/F2 10 Tf
+(Results-driven DevOps & Cloud Engineer specializing in AWS cloud infrastructure, Kubernetes orchestration,) Tj
+0 -12 Td
+(Terraform IaC, and robust CI/CD automation pipelines. Proven record of zero-downtime migrations,) Tj
+0 -12 Td
+(high-availability multi-AZ environments, enterprise GitOps workflows, and AI integration.) Tj
+0 -25 Td
+/F1 14 Tf
+(CORE COMPETENCIES & CERTIFICATIONS) Tj
+0 -15 Td
+/F2 10 Tf
+(- Cloud & Platforms: AWS (ECS, EKS, VPC, Route 53, CloudFront, ALB, RDS, Lambda), Azure) Tj
+0 -12 Td
+(- Infrastructure as Code: Terraform Modules, AWS CloudFormation, Ansible Fleets) Tj
+0 -12 Td
+(- CI/CD & GitOps: GitHub Actions, GitLab CI/CD, AWS CodePipeline, Bitbucket Pipelines, ArgoCD) Tj
+0 -12 Td
+(- Containers & Orchestration: Docker, Kubernetes, Helm, Microservices Architecture) Tj
+0 -12 Td
+(- Observability: Datadog APM, Prometheus, Grafana, ELK Stack, Distributed Tracing) Tj
+0 -25 Td
+/F1 14 Tf
+(EXPERIENCE & KEY PROJECTS) Tj
+0 -15 Td
+/F2 10 Tf
+(- Architected highly available AWS ECS architectures with Terraform & automated Bitbucket Pipelines.) Tj
+0 -12 Td
+(- Executed zero-downtime DNS cutover to AWS Route 53 and managed 100+ servers using Ansible.) Tj
+0 -12 Td
+(- Deployed Datadog APM & synthetics into CI/CD for continuous quality & latency validation.) Tj
+0 -12 Td
+(- Built custom local GPU GenAI home-lab automation pipelines and MCP developer workflows.) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000140 00000 n 
+0000000191 00000 n 
+0000000252 00000 n 
+0000000388 00000 n 
+0000000465 00000 n 
+0000000537 00000 n 
+trailer
+<< /Size 8 /Root 2 0 R /Info 1 0 R >>
+startxref
+1330
+%%EOF
