@@ -1,7 +1,7 @@
 "use client";
 
 import styles from './experience.module.css';
-import { FaCalendarAlt, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
 
 interface WorkItem {
   role: string;
