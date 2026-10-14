@@ -1,24 +1,25 @@
 .navbarWrapper {
   position: fixed;
-  top: 1.5rem;
+  top: 1rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-  z-index: 100;
+  width: 92%;
+  max-width: 1280px;
+  z-index: 1000;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  padding: 0.6rem 1.25rem;
+  background: rgba(10, 16, 26, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  gap: 1rem;
 }
 
 .brand {
@@ -26,73 +27,94 @@
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   letter-spacing: 0.05em;
   color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brandLogo {
   color: #00FFC8;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 200, 0.5));
 }
 
 .brandName {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .brandRole {
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .navLinks {
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   align-items: center;
+  flex-shrink: 1;
 }
 
 .navLink {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  white-space: nowrap;
   transition: all 0.2s ease;
 }
 
-.navLink:hover, .navLink.active {
+.navLink:hover {
   color: #00FFC8;
+  background: rgba(0, 255, 200, 0.06);
 }
 
 .navLinkIcon {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 .navActions {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .githubIcon {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1.25rem;
-  transition: color 0.2s ease;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
 }
 
 .githubIcon:hover {
   color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .resumeNavBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.55rem 0.95rem;
+  padding: 0.45rem 0.85rem;
   background: rgba(255, 179, 0, 0.12);
   border: 1px solid rgba(255, 179, 0, 0.4);
   border-radius: 9999px;
@@ -101,6 +123,7 @@
   font-size: 0.8rem;
   letter-spacing: 0.05em;
   text-decoration: none;
+  white-space: nowrap;
   transition: all 0.25s ease;
 }
 
@@ -112,29 +135,93 @@
 }
 
 .ctaButton {
-  padding: 0.6rem 1.5rem;
+  padding: 0.45rem 1rem;
   background: rgba(0, 255, 200, 0.1);
   border: 1px solid rgba(0, 255, 200, 0.4);
   border-radius: 9999px;
   color: #fff;
   font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(0, 255, 200, 0.2), inset 0 0 10px rgba(0, 255, 200, 0.1);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.2);
 }
 
 .ctaButton:hover {
   background: rgba(0, 255, 200, 0.2);
   border-color: #00FFC8;
-  box-shadow: 0 0 25px rgba(0, 255, 200, 0.4), inset 0 0 15px rgba(0, 255, 200, 0.2);
+  box-shadow: 0 0 20px rgba(0, 255, 200, 0.4);
+  color: #00FFC8;
+  transform: translateY(-1px);
+}
+
+/* Mobile Toggle Hamburger */
+.mobileMenuBtn {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mobileMenuBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
   color: #00FFC8;
 }
 
-@media (max-width: 1024px) {
+/* Mobile Dropdown Menu */
+.mobileDrawer {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: rgba(11, 25, 44, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.mobileDrawer .navLink {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+.mobileDrawer .navLink:hover {
+  background: rgba(0, 255, 200, 0.1);
+}
+
+@media (max-width: 1080px) {
   .navLinks {
     display: none;
+  }
+  .mobileMenuBtn {
+    display: flex;
+  }
+  .mobileDrawer.open {
+    display: flex;
+  }
+}
+
+@media (max-width: 580px) {
+  .brandRole {
+    display: none;
+  }
+  .ctaButton {
+    display: none;
+  }
+  .navbar {
+    padding: 0.5rem 0.9rem;
   }
 }

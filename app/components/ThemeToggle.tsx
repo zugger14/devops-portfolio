@@ -25,17 +25,19 @@ export default function ThemeToggle() {
     <button 
       onClick={toggleTheme}
       style={{
-        background: 'rgba(255,255,255,0.1)',
-        border: '1px solid rgba(255,255,255,0.2)',
+        background: 'rgba(255,255,255,0.06)',
+        border: '1px solid rgba(255,255,255,0.15)',
         color: '#fff',
         borderRadius: '50%',
-        width: '40px',
-        height: '40px',
+        width: '36px',
+        height: '36px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        transition: 'all 0.3s ease'
+        fontSize: '0.95rem',
+        flexShrink: 0,
+        transition: 'all 0.25s ease'
       }}
       title="Toggle Theme"
     >
