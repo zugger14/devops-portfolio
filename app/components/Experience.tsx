@@ -1,75 +1,82 @@
 "use client";
 
 import styles from './experience.module.css';
-import { FaAws, FaCalendarAlt, FaCheckCircle, FaAward } from 'react-icons/fa';
-import { SiKubernetes, SiTerraform, SiDocker, SiLinux } from 'react-icons/si';
+import { FaCalendarAlt, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
 
-const certifications = [
-  {
-    name: 'AWS Certified Solutions Architect',
-    issuer: 'Amazon Web Services',
-    icon: FaAws,
-    color: '#FF9900',
-    status: 'Verified'
-  },
-  {
-    name: 'HashiCorp Certified: Terraform Associate',
-    issuer: 'HashiCorp',
-    icon: SiTerraform,
-    color: '#844FBA',
-    status: 'Proficient'
-  },
-  {
-    name: 'Kubernetes Administrator & CKA Practice',
-    issuer: 'Cloud Native Computing Foundation',
-    icon: SiKubernetes,
-    color: '#326CE5',
-    status: 'Trained'
-  },
-  {
-    name: 'Enterprise Linux & Container Security',
-    issuer: 'Linux Foundation / Red Hat',
-    icon: SiLinux,
-    color: '#00FFC8',
-    status: 'Hands-on'
-  }
-];
+interface WorkItem {
+  role: string;
+  company: string;
+  location: string;
+  period: string;
+  duties: string[];
+  tech: string[];
+}
 
-const workExperience = [
+const workExperience: WorkItem[] = [
   {
-    role: 'Senior DevOps & Cloud Infrastructure Engineer',
-    company: 'Enterprise Cloud Solutions / High-Traffic Platforms',
-    period: '2023 — Present',
+    role: 'DevOps & Software Intelligence Engineer',
+    company: 'Social Knowledge (RVLIFE)',
+    location: 'USA (Contract)',
+    period: 'Apr 2025 — Present',
     duties: [
-      'Architected and deployed AWS ECS and EKS cluster environments with automated multi-AZ failover and auto-scaling triggers.',
-      'Authored modular Terraform IaC modules and Ansible playbooks to provision and govern 100+ cloud and on-premise compute nodes.',
-      'Designed end-to-end GitOps CI/CD delivery pipelines reducing lead time to production from hours to sub-10-minute automated rollouts.',
-      'Integrated Datadog APM, synthetics, and distributed tracing directly into deployment gates for continuous latency and error monitoring.'
+      'Architected full-stack observability workflows using Datadog across APM, infrastructure metrics, and logs for fast resolution.',
+      'Authored reusable Terraform modules for AWS/Datadog, slashing environment deployment times by 70% with strict reproducibility.',
+      'Pioneered integration of AI assistants (Cursor AI, GitHub Copilot) and MCP servers to maximize developer velocity.',
+      'Engineered automated, zero-downtime CI/CD pipelines using GitHub Actions and AWS CodePipeline.'
     ],
-    tech: ['AWS', 'Kubernetes', 'Terraform', 'Datadog', 'Ansible', 'GitLab CI', 'Docker']
+    tech: ['AWS', 'Datadog', 'Terraform', 'GitHub Actions', 'AWS CodePipeline', 'Cursor AI', 'MCP Servers', 'APM']
   },
   {
-    role: 'DevOps & Systems Automation Engineer',
-    company: 'Cloud Infrastructure & Engineering Services',
-    period: '2021 — 2023',
+    role: 'DevOps Engineer',
+    company: 'EBPearls',
+    location: 'Nepal',
+    period: 'Jan 2024 — Mar 2025',
     duties: [
-      'Executed full enterprise migration of 150+ code repositories from SVN to Git with zero disruption to active sprint cycles.',
-      'Built multi-stage Docker container build workflows cutting container image sizes by ~45% and eliminating CVE vulnerabilities.',
-      'Orchestrated automated DNS migrations onto AWS Route 53 with zero downtime for high-volume customer portals.',
-      'Administered centralized logging infrastructure leveraging Elasticsearch, Logstash, and Kibana (ELK) with automated alerting.'
+      'Containerized high-traffic React, Node.js, NestJS, and Python apps using Docker to optimize environment consistency.',
+      'Automated software delivery pipelines with Bitbucket Pipelines and AWS CodePipeline, cutting deploy times to minutes.',
+      'Utilized Ansible and Terraform for server provisioning, reducing manual configuration errors by 90%.',
+      'Established robust real-time monitoring infrastructures leveraging Nagios, New Relic, Prometheus, and Grafana.',
+      'Developed a custom Node.js Zoom chatbot to automate real-time product release notifications for cross-functional teams.'
     ],
-    tech: ['Docker', 'AWS Route 53', 'ELK Stack', 'Azure Pipelines', 'Ansible', 'Python']
+    tech: ['Docker', 'AWS CodePipeline', 'Bitbucket Pipelines', 'Ansible', 'Terraform', 'Prometheus', 'Grafana', 'Nagios', 'New Relic', 'Node.js']
   },
   {
-    role: 'Systems & Infrastructure Specialist',
-    company: 'Software & Network Engineering',
-    period: '2019 — 2021',
+    role: 'DevOps Engineer',
+    company: 'Hitachi Energy',
+    location: 'Nepal',
+    period: 'Jan 2023 — Jul 2023',
     duties: [
-      'Automated legacy deployment pipelines with Azure DevOps and shell scripts for business-critical PHP and SQL database services.',
-      'Developed custom operational chatbots (Zoom API / Slack) for instant build notifications and incident escalation.',
-      'Maintained Linux server security posture, firewall rules, automated SSL certificate renewals, and system backups.'
+      'Orchestrated enterprise migration of ~150 repositories from SVN to Git, enabling modern collaborative workflows.',
+      'Standardized branching strategies and version control across teams through targeted developer training sessions.',
+      'Configured Azure Pipelines to automate builds and deployments for critical PHP and MS SQL applications.'
     ],
-    tech: ['Linux', 'Shell Scripting', 'Azure DevOps', 'Node.js', 'Nginx', 'MySQL']
+    tech: ['Git', 'SVN Migration', 'Azure Pipelines', 'PHP', 'MS SQL', 'Branching Strategy']
+  },
+  {
+    role: 'DevOps Engineer',
+    company: 'Legalfit',
+    location: 'USA (Contract)',
+    period: 'Aug 2021 — Dec 2022',
+    duties: [
+      'Managed a fleet of ~100 servers using Ansible to ensure seamless, centralized configuration management.',
+      'Successfully executed a zero-downtime automated DNS migration to AWS Route 53.',
+      'Deployed and orchestrated highly available, auto-scaling environments on Docker and Kubernetes.',
+      'Implemented security baselines aligned with the AWS Well-Architected Framework and SOC2 compliance controls.'
+    ],
+    tech: ['Ansible', 'AWS Route 53', 'Kubernetes', 'Docker', 'AWS Well-Architected', 'SOC2 Compliance']
+  },
+  {
+    role: 'DevOps Engineer',
+    company: 'Cloudyfox',
+    location: 'Nepal',
+    period: 'May 2020 — Aug 2021',
+    duties: [
+      'Containerized multi-stack applications and deployed them onto highly scalable AWS ECS clusters using Docker.',
+      'Built GitLab CI/CD pipelines optimized for serverless AWS SAM infrastructure deployments.',
+      'Managed scalable cloud infrastructure leveraging infrastructure as code via Terraform and AWS CloudFormation.',
+      'Centralized system logs by deploying an ELK Stack to enhance visibility and deep debugging capabilities.'
+    ],
+    tech: ['AWS ECS', 'Docker', 'GitLab CI', 'AWS SAM', 'Terraform', 'CloudFormation', 'ELK Stack']
   }
 ];
 
@@ -77,32 +84,11 @@ export default function Experience() {
   return (
     <div className={styles.container}>
       <h2 className={styles.sectionTitle}>
-        Experience &amp; <span className={styles.highlight}>Credentials</span>
+        Professional <span className={styles.highlight}>Experience</span>
       </h2>
       <p className={styles.subtitle}>
-        Proven industry track record building, scaling, and safeguarding cloud-native platforms.
+        6+ years designing, automating, and scaling cloud-native architectures and production platforms.
       </p>
-
-      {/* Certifications Showcase */}
-      <div className={styles.certificationsGrid}>
-        {certifications.map((cert, index) => (
-          <div key={index} className={styles.certCard}>
-            <div 
-              className={styles.certIconWrapper} 
-              style={{ background: `${cert.color}15`, color: cert.color }}
-            >
-              <cert.icon size={26} />
-            </div>
-            <div className={styles.certInfo}>
-              <span className={styles.certName}>{cert.name}</span>
-              <span className={styles.certIssuer}>{cert.issuer}</span>
-              <span className={styles.certStatus} style={{ color: cert.color }}>
-                ✓ {cert.status}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
 
       {/* Career Timeline */}
       <div className={styles.timeline}>
@@ -117,7 +103,13 @@ export default function Experience() {
                   {item.period}
                 </span>
               </div>
-              <div className={styles.timelineCompany}>{item.company}</div>
+              <div className={styles.companyInfoRow}>
+                <span className={styles.timelineCompany}>{item.company}</span>
+                <span className={styles.timelineLocation}>
+                  <FaMapMarkerAlt size={11} style={{ marginRight: '4px' }} />
+                  {item.location}
+                </span>
+              </div>
               <ul className={styles.timelineDuties}>
                 {item.duties.map((duty, dIdx) => (
                   <li key={dIdx}>{duty}</li>

@@ -125,7 +125,7 @@ export default function Navbar() {
         </a>
         <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={styles.navLink}>
           <FaBriefcase className={styles.navLinkIcon} />
-          <span>Experience &amp; Certifications</span>
+          <span>Experience</span>
         </a>
         <a href="#live-demo" onClick={(e) => handleNavClick(e, 'live-demo')} className={styles.navLink}>
           <FaTerminal className={styles.navLinkIcon} />
