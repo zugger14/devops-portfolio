@@ -2,23 +2,67 @@
 
 import { useState, FormEvent } from 'react';
 import styles from './contact.module.css';
-import { FaEnvelope, FaPhone, FaLinkedin, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle } from 'react-icons/fa';
+import { 
+  FaEnvelope, 
+  FaPhone, 
+  FaLinkedin, 
+  FaMapMarkerAlt, 
+  FaPaperPlane, 
+  FaCheckCircle, 
+  FaExclamationTriangle,
+  FaSpinner 
+} from 'react-icons/fa';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '', honeypot: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    
-    // Construct mailto as instant zero-friction handler or fallback
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    window.location.href = `mailto:shirishmaharjan0@gmail.com?subject=${subject}&body=${body}`;
-    
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setStatusMessage(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          honeypot: formData.honeypot,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success) {
+        setStatusMessage({
+          type: 'success',
+          text: data.message || "Thank you! Your message has been sent directly. Shirish will get back to you shortly.",
+        });
+        setFormData({ name: '', email: '', message: '', honeypot: '' });
+      } else {
+        setStatusMessage({
+          type: 'error',
+          text: data.error || 'Failed to send message. Please try again or reach out directly on LinkedIn.',
+        });
+      }
+    } catch (err) {
+      console.error('Contact form submission error:', err);
+      setStatusMessage({
+        type: 'error',
+        text: 'Network error sending your message. Please check your connection or reach out directly on LinkedIn.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -62,16 +106,43 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Quick Send Message Form */}
+        {/* Quick Direct Message Form */}
         <div className={styles.formContainer}>
           <h3 className={styles.formTitle}>Send a Direct Message</h3>
+          <p className={styles.formSubtitle}>Send your message directly from here without opening any email client.</p>
+
+          {statusMessage && (
+            <div className={statusMessage.type === 'success' ? styles.successAlert : styles.errorAlert} role="alert">
+              {statusMessage.type === 'success' ? (
+                <FaCheckCircle className={styles.alertIcon} size={18} />
+              ) : (
+                <FaExclamationTriangle className={styles.alertIcon} size={18} />
+              )}
+              <div className={styles.alertContent}>
+                <span>{statusMessage.text}</span>
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className={styles.form}>
+            {/* Hidden honeypot field for bot protection */}
+            <input
+              type="text"
+              name="honeypot"
+              value={formData.honeypot}
+              onChange={(e) => setFormData(prev => ({ ...prev, honeypot: e.target.value }))}
+              style={{ display: 'none', opacity: 0, position: 'absolute', left: '-9999px' }}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <div className={styles.inputGroup}>
               <input
                 type="text"
                 placeholder="Your Name"
                 required
                 value={formData.name}
+                disabled={isSubmitting}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 className={styles.input}
               />
@@ -82,6 +153,7 @@ export default function Contact() {
                 placeholder="Your Email"
                 required
                 value={formData.email}
+                disabled={isSubmitting}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 className={styles.input}
               />
@@ -92,16 +164,21 @@ export default function Contact() {
                 rows={4}
                 required
                 value={formData.message}
+                disabled={isSubmitting}
                 onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                 className={styles.textarea}
               />
             </div>
 
-            <button type="submit" className={styles.submitBtn}>
-              {submitted ? (
+            <button 
+              type="submit" 
+              className={styles.submitBtn} 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
                 <>
-                  <FaCheckCircle color="#00ffc8" />
-                  <span>Message Sent!</span>
+                  <FaSpinner className={styles.spinnerIcon} />
+                  <span>Sending Message...</span>
                 </>
               ) : (
                 <>
