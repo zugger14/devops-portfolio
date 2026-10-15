@@ -55,17 +55,32 @@ jobs:
           echo "RESEND_KEY=$RESEND_KEY" >> $GITHUB_ENV
           echo "CONTACT_EMAIL=$CONTACT_EMAIL" >> $GITHUB_ENV
 
+      - name: Build .env File
+        run: |
+          echo "==> Building production .env file on GitHub Actions runner..."
+          cat <<EOF > .env
+          NODE_ENV=production
+          PORT=3000
+          RESEND_API_KEY=${RESEND_KEY}
+          CONTACT_EMAIL=${CONTACT_EMAIL}
+          EOF
+          chmod 600 .env
+          
+          # Base64 encode to safely transmit multi-line secrets across SSH
+          ENV_BASE64=$(base64 -w 0 .env 2>/dev/null || base64 .env | tr -d '\n')
+          echo "ENV_BASE64=$ENV_BASE64" >> $GITHUB_ENV
+          echo "==> Production .env successfully built on runner."
+
       - name: Deploy on EC2 via SSH
         uses: appleboy/ssh-action@v1.2.0
         env:
-          RESEND_KEY: ${{ env.RESEND_KEY }}
-          CONTACT_EMAIL: ${{ env.CONTACT_EMAIL }}
+          ENV_BASE64: ${{ env.ENV_BASE64 }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_PORT || 22 }}
-          envs: RESEND_KEY,CONTACT_EMAIL
+          envs: ENV_BASE64
           script: |
             set -e
             echo "==> Deploying updates to EC2..."
@@ -87,8 +102,8 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            echo "==> Generating .env from SSM Parameter Store..."
-            printf "NODE_ENV=production\nPORT=3000\nRESEND_API_KEY=%s\nCONTACT_EMAIL=%s\n" "$RESEND_KEY" "$CONTACT_EMAIL" > .env
+            echo "==> Writing .env file transferred from GitHub Actions..."
+            echo "$ENV_BASE64" | base64 -d > .env
             chmod 600 .env
 
             echo "==> Building and launching Docker container..."
