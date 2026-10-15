@@ -44,6 +44,8 @@ export default function HeroSection() {
           </a>
           <a 
             href="/shirish-maharjan-resume.pdf" 
+            target="_blank"
+            rel="noopener noreferrer"
             download="Shirish_Maharjan_Resume.pdf" 
             className={styles.secondaryCtaButton}
           >

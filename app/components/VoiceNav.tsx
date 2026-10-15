@@ -50,7 +50,7 @@ interface SpeechRecognitionInstance {
 const COMMAND_MAP: Array<{ keywords: string[]; targetId: string; label: string }> = [
   { keywords: ['home', 'top', 'start', 'intro'], targetId: 'home', label: 'Home' },
   { keywords: ['project', 'projects', 'work', 'showcase'], targetId: 'projects', label: 'Projects' },
-  { keywords: ['pipeline', 'demo', 'ci cd', 'cicd', 'studio', 'deploy'], targetId: 'live-demo', label: 'CI/CD Studio' },
+  { keywords: ['experience', 'career', 'history', 'company', 'companies', 'timeline'], targetId: 'experience', label: 'Experience' },
   { keywords: ['skill', 'skills', 'skillset', 'radar', 'stack', 'tech'], targetId: 'skillset', label: 'Skill Radar' },
   { keywords: ['contact', 'hire', 'email', 'touch', 'message'], targetId: 'contact', label: 'Contact' }
 ];

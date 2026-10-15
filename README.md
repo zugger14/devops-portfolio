@@ -9,7 +9,6 @@ Interactive DevOps portfolio showcasing automated delivery workflows, containeri
 
 ## 🛠️ Features
 
-- **Interactive CI/CD Studio**: Dual-pane IDE and live `<iframe sandbox>` previewing zero-downtime rolling updates.
 - **GitOps Pipeline**: Automated testing, linting, multi-stage Docker image builds, and automated SSH-based EC2 deployments on push to `main`.
 - **Infrastructure**: Standalone Next.js containerized build behind Nginx reverse proxy on AWS EC2 (Amazon Linux 2023).
 

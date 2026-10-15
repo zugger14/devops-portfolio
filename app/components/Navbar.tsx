@@ -86,6 +86,8 @@ export default function Navbar() {
           </a>
           <a 
             href="/shirish-maharjan-resume.pdf" 
+            target="_blank"
+            rel="noopener noreferrer"
             download="Shirish_Maharjan_Resume.pdf" 
             className={styles.resumeNavBtn}
             title="Download PDF Resume"
@@ -127,10 +129,6 @@ export default function Navbar() {
           <FaBriefcase className={styles.navLinkIcon} />
           <span>Experience</span>
         </a>
-        <a href="#live-demo" onClick={(e) => handleNavClick(e, 'live-demo')} className={styles.navLink}>
-          <FaTerminal className={styles.navLinkIcon} />
-          <span>CI/CD Pipeline Demo</span>
-        </a>
         <a href="#skillset" onClick={(e) => handleNavClick(e, 'skillset')} className={styles.navLink}>
           <FaWrench className={styles.navLinkIcon} />
           <span>Skillset</span>
@@ -138,6 +136,16 @@ export default function Navbar() {
         <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={styles.navLink}>
           <FaEnvelope className={styles.navLinkIcon} />
           <span>Contact</span>
+        </a>
+        <a 
+          href="/shirish-maharjan-resume.pdf" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          download="Shirish_Maharjan_Resume.pdf" 
+          className={styles.navLink}
+        >
+          <FaFileDownload className={styles.navLinkIcon} />
+          <span>Download CV (PDF)</span>
         </a>
       </div>
     </div>
