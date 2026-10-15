@@ -35,13 +35,37 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'us-east-1' }}
+
+      - name: Fetch Secrets from AWS SSM Parameter Store
+        id: ssm
+        run: |
+          echo "==> Fetching parameters from AWS SSM Parameter Store..."
+          RESEND_KEY=$(aws ssm get-parameter --name "/portfolio/RESEND_API_KEY" --with-decryption --query "Parameter.Value" --output text)
+          CONTACT_EMAIL=$(aws ssm get-parameter --name "/portfolio/CONTACT_EMAIL" --query "Parameter.Value" --output text 2>/dev/null || echo "shirishmaharjan0@gmail.com")
+          
+          # Mask secret value in GitHub Actions logs
+          echo "::add-mask::$RESEND_KEY"
+          
+          echo "RESEND_KEY=$RESEND_KEY" >> $GITHUB_ENV
+          echo "CONTACT_EMAIL=$CONTACT_EMAIL" >> $GITHUB_ENV
+
       - name: Deploy on EC2 via SSH
         uses: appleboy/ssh-action@v1.2.0
+        env:
+          RESEND_KEY: ${{ env.RESEND_KEY }}
+          CONTACT_EMAIL: ${{ env.CONTACT_EMAIL }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_PORT || 22 }}
+          envs: RESEND_KEY,CONTACT_EMAIL
           script: |
             set -e
             echo "==> Deploying updates to EC2..."
@@ -62,6 +86,10 @@ jobs:
             echo "==> Pulling latest changes from origin/main..."
             git fetch origin main
             git reset --hard origin/main
+
+            echo "==> Generating .env from SSM Parameter Store..."
+            printf "NODE_ENV=production\nPORT=3000\nRESEND_API_KEY=%s\nCONTACT_EMAIL=%s\n" "$RESEND_KEY" "$CONTACT_EMAIL" > .env
+            chmod 600 .env
 
             echo "==> Building and launching Docker container..."
             docker compose down || true

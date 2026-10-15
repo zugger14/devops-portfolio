@@ -8,6 +8,11 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    env_file:
+      - path: .env
+        required: false
     environment:
       - NODE_ENV=production
       - PORT=3000
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - CONTACT_EMAIL=${CONTACT_EMAIL:-shirishmaharjan0@gmail.com}
