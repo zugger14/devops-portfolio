@@ -2,11 +2,11 @@
   --background: #ffffff;
   --foreground: #171717;
   
-  /* Cyberpunk Default Theme — Modified via Live CI/CD Playground */
-  --color-primary: 20, 21, 21; /* #141515 */
-  --color-accent: 176, 50, 7; /* #b03207 */
-  --color-bg-start: #005de0;
-  --color-bg-end: #d30909;
+  /* Cyberpunk Default Theme */
+  --color-primary: 0, 255, 200; /* #00FFC8 */
+  --color-accent: 255, 179, 0; /* #FFB300 */
+  --color-bg-start: #0B192C;
+  --color-bg-end: #000000;
 }
 
 :root[data-theme="synthwave"] {
