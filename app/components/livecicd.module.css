@@ -1,0 +1,736 @@
+/* ========================================
+   Live CI/CD Playground — Premium Glass UI
+   ======================================== */
+
+/* Floating trigger button */
+.triggerButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, rgba(0, 255, 200, 0.15), rgba(0, 255, 200, 0.05));
+  border: 1px solid rgba(0, 255, 200, 0.4);
+  border-radius: 9999px;
+  color: #00FFC8;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 25px rgba(0, 255, 200, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: triggerPulse 3s ease-in-out infinite;
+}
+
+.triggerButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 0 40px rgba(0, 255, 200, 0.35),
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: rgba(0, 255, 200, 0.7);
+  background: linear-gradient(135deg, rgba(0, 255, 200, 0.25), rgba(0, 255, 200, 0.1));
+}
+
+.triggerIcon {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 200, 0.6));
+}
+
+.triggerPing {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00FFC8;
+  animation: pingDot 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(0, 255, 200, 0.6);
+}
+
+@keyframes triggerPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(0, 255, 200, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  50% { box-shadow: 0 0 35px rgba(0, 255, 200, 0.35), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+}
+
+@keyframes pingDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
+}
+
+/* Backdrop overlay */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.backdropOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Panel container */
+.panel {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 1001;
+  width: 420px;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  background: linear-gradient(170deg, rgba(11, 25, 44, 0.95), rgba(5, 10, 22, 0.98));
+  border: 1px solid rgba(0, 255, 200, 0.2);
+  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(0, 255, 200, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.panelOpen {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Custom scrollbar */
+.panel::-webkit-scrollbar {
+  width: 4px;
+}
+.panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 200, 0.2);
+  border-radius: 2px;
+}
+
+/* Panel header */
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.panelTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.panelTitleIcon {
+  font-size: 1.2rem;
+  color: #00FFC8;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 200, 0.5));
+}
+
+.panelTitleText {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.panelTitleBadge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #00FFC8;
+  background: rgba(0, 255, 200, 0.1);
+  border: 1px solid rgba(0, 255, 200, 0.3);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 70, 70, 0.15);
+  border-color: rgba(255, 70, 70, 0.4);
+  color: #ff4646;
+}
+
+/* Panel body */
+.panelBody {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Info banner */
+.infoBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 255, 200, 0.04);
+  border: 1px solid rgba(0, 255, 200, 0.12);
+  border-radius: 12px;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+}
+
+.infoBannerIcon {
+  color: #00FFC8;
+  font-size: 0.9rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Control groups */
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.controlLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.controlLabelIcon {
+  color: rgba(0, 255, 200, 0.6);
+  font-size: 0.85rem;
+}
+
+/* Color picker */
+.colorPickerRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.colorSwatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  background: none;
+}
+
+.colorSwatch::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: 10px;
+}
+
+.colorSwatch::-webkit-color-swatch {
+  border: none;
+  border-radius: 10px;
+}
+
+.colorSwatch::-moz-color-swatch {
+  border: none;
+  border-radius: 10px;
+}
+
+.colorSwatch:hover {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.colorHexInput {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.colorHexInput:focus {
+  border-color: rgba(0, 255, 200, 0.4);
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.1);
+}
+
+/* Slider control */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.slider {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(
+    to right,
+    rgba(0, 255, 200, 0.4) 0%,
+    rgba(0, 255, 200, 0.1) 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00FFC8;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 255, 200, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 16px rgba(0, 255, 200, 0.6);
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00FFC8;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 255, 200, 0.4);
+  cursor: pointer;
+}
+
+.sliderValue {
+  min-width: 50px;
+  text-align: right;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0, 255, 200, 0.15), transparent);
+  margin: 0.25rem 0;
+}
+
+/* Deploy button */
+.deployButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, rgba(0, 255, 200, 0.15), rgba(0, 255, 200, 0.05));
+  border: 1.5px solid rgba(0, 255, 200, 0.4);
+  border-radius: 14px;
+  color: #00FFC8;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.deployButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(0, 255, 200, 0.25), rgba(0, 255, 200, 0.1));
+  border-color: #00FFC8;
+  box-shadow: 0 0 30px rgba(0, 255, 200, 0.3);
+  transform: translateY(-2px);
+}
+
+.deployButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.deployButtonIcon {
+  font-size: 1rem;
+}
+
+/* Reset button */
+.resetButton {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background: rgba(255, 70, 70, 0.08);
+  border-color: rgba(255, 70, 70, 0.3);
+  color: rgba(255, 100, 100, 0.8);
+}
+
+/* ========================================
+   CI/CD Pipeline Visualization
+   ======================================== */
+
+.pipelineContainer {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+}
+
+.pipelineTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.pipelineTitleDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00FFC8;
+  animation: pipelineDotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pipelineDotPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px rgba(0, 255, 200, 0.6); }
+  50% { opacity: 0.3; box-shadow: none; }
+}
+
+/* Pipeline stages */
+.pipelineStages {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.pipelineStage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  position: relative;
+}
+
+/* Vertical connector line */
+.pipelineStage:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: calc(50% + 12px);
+  width: 2px;
+  height: calc(100% - 12px);
+  background: rgba(255, 255, 255, 0.06);
+  transition: background 0.5s ease;
+}
+
+.pipelineStage.stageActive:not(:last-child)::after,
+.pipelineStage.stageComplete:not(:last-child)::after {
+  background: rgba(0, 255, 200, 0.3);
+}
+
+/* Stage status icon */
+.stageIndicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+}
+
+.stageActive .stageIndicator {
+  border-color: rgba(0, 255, 200, 0.5);
+  background: rgba(0, 255, 200, 0.1);
+  color: #00FFC8;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.3);
+  animation: stageSpinner 1s linear infinite;
+}
+
+.stageComplete .stageIndicator {
+  border-color: rgba(0, 255, 200, 0.6);
+  background: rgba(0, 255, 200, 0.15);
+  color: #00FFC8;
+  box-shadow: 0 0 8px rgba(0, 255, 200, 0.2);
+}
+
+.stageFailed .stageIndicator {
+  border-color: rgba(255, 70, 70, 0.5);
+  background: rgba(255, 70, 70, 0.1);
+  color: #ff4646;
+  box-shadow: 0 0 12px rgba(255, 70, 70, 0.3);
+}
+
+@keyframes stageSpinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Stage text */
+.stageInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.stageName {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.4s ease;
+}
+
+.stageActive .stageName,
+.stageComplete .stageName {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.stageFailed .stageName {
+  color: rgba(255, 100, 100, 0.9);
+}
+
+.stageDetail {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: 'Geist Mono', monospace;
+  transition: color 0.4s ease;
+}
+
+.stageActive .stageDetail {
+  color: rgba(0, 255, 200, 0.6);
+}
+
+.stageComplete .stageDetail {
+  color: rgba(0, 255, 200, 0.4);
+}
+
+/* Stage duration badge */
+.stageDuration {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Geist Mono', monospace;
+  padding: 0.15rem 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  transition: all 0.4s ease;
+}
+
+.stageComplete .stageDuration {
+  color: rgba(0, 255, 200, 0.5);
+  background: rgba(0, 255, 200, 0.05);
+}
+
+/* Deploy complete message */
+.deploySuccess {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 255, 200, 0.06);
+  border: 1px solid rgba(0, 255, 200, 0.2);
+  border-radius: 12px;
+  margin-top: 0.75rem;
+  animation: successFadeIn 0.5s ease;
+}
+
+.deploySuccessIcon {
+  font-size: 1.2rem;
+  color: #00FFC8;
+  filter: drop-shadow(0 0 6px rgba(0, 255, 200, 0.5));
+}
+
+.deploySuccessText {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.deploySuccessText strong {
+  color: #00FFC8;
+}
+
+@keyframes successFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Countdown timer */
+.countdownBar {
+  margin-top: 0.75rem;
+}
+
+.countdownLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.4rem;
+}
+
+.countdownTrack {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.countdownFill {
+  height: 100%;
+  background: linear-gradient(90deg, #00FFC8, rgba(0, 255, 200, 0.3));
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+
+/* Error state */
+.deployError {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 70, 70, 0.06);
+  border: 1px solid rgba(255, 70, 70, 0.2);
+  border-radius: 12px;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: rgba(255, 150, 150, 0.9);
+  animation: successFadeIn 0.5s ease;
+}
+
+/* Preview indicator */
+.previewBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  background: rgba(255, 179, 0, 0.1);
+  border: 1px solid rgba(255, 179, 0, 0.3);
+  border-radius: 8px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #FFB300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.previewDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFB300;
+  animation: pingDot 2s ease-in-out infinite;
+}
+
+/* Git commit log */
+.commitLog {
+  padding: 0.65rem 0.85rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.commitLog .commitHash {
+  color: #FFB300;
+}
+
+.commitLog .commitBranch {
+  color: #00FFC8;
+}
+
+/* Mobile responsive */
+@media (max-width: 500px) {
+  .panel {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    width: auto;
+    max-height: 80vh;
+  }
+
+  .triggerButton {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .triggerButton span {
+    display: none;
+  }
+}

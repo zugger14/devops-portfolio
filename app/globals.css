@@ -73,3 +73,10 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Hide Next.js indicator badge */
+nextjs-portal,
+[data-nextjs-dev-overlay] {
+  display: none !important;
+}
+

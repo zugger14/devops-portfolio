@@ -4,6 +4,7 @@ import "./globals.css";
 import type { ReactNode } from "react";
 import Navbar from "./components/Navbar";
 import VoiceNav from "./components/VoiceNav";
+import LiveCICD from "./components/LiveCICD";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <VoiceNav />
+        <LiveCICD />
       </body>
     </html>
   );
