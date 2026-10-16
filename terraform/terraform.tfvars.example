@@ -1,4 +1,0 @@
-aws_region    = "us-east-1"
-environment   = "production"
-resend_api_key = "re_your_api_key_here"
-contact_email  = "shirishmaharjan0@gmail.com"
