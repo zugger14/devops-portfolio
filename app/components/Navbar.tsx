@@ -76,7 +76,7 @@ export default function Navbar() {
         <div className={styles.navActions}>
           <ThemeToggle />
           <a 
-            href="https://github.com/shirish14" 
+            href="https://github.com/zugger14" 
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.githubIcon}
